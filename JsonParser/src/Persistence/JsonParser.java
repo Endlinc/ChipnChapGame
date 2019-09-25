@@ -1,10 +1,8 @@
 package Persistence;
 
-import com.google.gson.JsonObject;
+import javax.json.Json;
 
 public class JsonParser {
-    JsonObject root = new JsonObject();
     public JsonParser() {
-
     }
 }
