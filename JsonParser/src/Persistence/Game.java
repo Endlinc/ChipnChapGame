@@ -11,4 +11,12 @@ public class Game {
         this.characters.addAll(characters);
         this.board = board;
     }
+
+    public List<Character> getCharacters() {
+        return characters;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
 }
