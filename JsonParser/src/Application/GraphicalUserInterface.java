@@ -39,7 +39,6 @@ public class GraphicalUserInterface extends JFrame implements WindowListener {
 
 	public GraphicalUserInterface() {
 		super("CHAP GAME");
-		game = new Game();
 		initialize();
 		setupGUI();
 		getContentPane().add(outerMostPanel);
@@ -49,6 +48,7 @@ public class GraphicalUserInterface extends JFrame implements WindowListener {
 
 		// setupPlayers();
 		// game = new CluedoGame(players);
+		game = new Game();
 
 		// game.newGame();
 		// updatePanel();

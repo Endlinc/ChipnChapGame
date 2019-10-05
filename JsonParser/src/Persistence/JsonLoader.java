@@ -10,9 +10,11 @@ public class JsonLoader {
             BufferedReader bf = new BufferedReader(new FileReader(new File(path)));
             StringBuilder strBuilder = new StringBuilder();
             String content = "";
-//            while(bf.readLine() != null) {
-                strBuilder.append(bf.readLine());
-//            }
+            String holder = null;
+            while ((holder = bf.readLine()) != null) {
+                content = content + holder;
+            }
+
             content = strBuilder.toString();
             System.out.println("===============");
             System.out.println(content);

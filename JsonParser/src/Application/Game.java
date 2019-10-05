@@ -12,7 +12,8 @@ public class Game {
         board = new Board();
         gameWon = false;
 
-        startGame();
+        boolean set = setChap(board,4,4);
+//        startGame();
 
     }
 
@@ -28,6 +29,11 @@ public class Game {
     private int ChapX;
     private int ChapY;
     private Chap chap;
+
+    public boolean isGameWon() {
+        return gameWon;
+    }
+
     private boolean gameWon;
 
 
