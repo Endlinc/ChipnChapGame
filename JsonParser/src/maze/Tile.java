@@ -21,4 +21,8 @@ public abstract class Tile {
     public int getY() {
         return y;
     }
+
+    public abstract Object getObject();
+
+    public abstract String getType();
 }

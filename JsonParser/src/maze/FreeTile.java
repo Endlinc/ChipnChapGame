@@ -26,6 +26,12 @@ public class FreeTile extends Tile{
 	public Object getObject(){
 		return object;
 	}
+
+	@Override
+	public String getType() {
+		return "FreeTile";
+	}
+
 	public int getX(){
 		return x;
 	}

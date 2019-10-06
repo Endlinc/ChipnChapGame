@@ -24,4 +24,25 @@ public class Key implements Object {
 	public void setDoor(LockedDoor door){
 		this.door = door;
 	}
+
+	@Override
+	public String getType() {
+		return "key";
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public boolean isPickedUp() {
+		return pickedUp;
+	}
 }

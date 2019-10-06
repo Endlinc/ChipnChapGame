@@ -81,4 +81,8 @@ public class Chap implements Object{
 		this.y = y;
 	}
 
+	@Override
+	public String getType() {
+		return "Chap";
+	}
 }

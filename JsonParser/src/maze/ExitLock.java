@@ -16,4 +16,14 @@ public class ExitLock extends Tile{
 	public String toString() {
 		return " L ";
 	}
+
+	@Override
+	public Object getObject() {
+		return null;
+	}
+
+	@Override
+	public String getType() {
+		return "ExitLock";
+	}
 }

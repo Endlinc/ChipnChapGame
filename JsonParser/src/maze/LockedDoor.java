@@ -7,6 +7,10 @@ import java.awt.*;
  *
  */
 public class LockedDoor extends Tile {
+	public Color getColor() {
+		return color;
+	}
+
 	private Color color;
 
 	public LockedDoor(int x,int y,Color color) {
@@ -22,5 +26,15 @@ public class LockedDoor extends Tile {
 	@Override
 	public String toString() {
 		return " D ";
+	}
+
+	@Override
+	public Object getObject() {
+		return null;
+	}
+
+	@Override
+	public String getType() {
+		return "LockedDoor";
 	}
 }

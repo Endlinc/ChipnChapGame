@@ -16,4 +16,14 @@ public class WallTile extends Tile {
     public String toString() {
         return " W ";
     }
+
+    @Override
+    public Object getObject() {
+        return null;
+    }
+
+    @Override
+    public String getType() {
+        return "WallTile";
+    }
 }

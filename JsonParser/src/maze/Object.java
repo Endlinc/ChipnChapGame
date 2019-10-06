@@ -5,5 +5,5 @@ package maze;
  *
  */
 public interface Object {
-
+    public String getType();
 }

@@ -16,5 +16,15 @@ public class Exit extends Tile {
 	public String toString() {
 		return " E ";
 	}
+
+	@Override
+	public Object getObject() {
+		return null;
+	}
+
+	@Override
+	public String getType() {
+		return "Exit";
+	}
 }
 

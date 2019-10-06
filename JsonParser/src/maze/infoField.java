@@ -22,4 +22,18 @@ public class infoField extends Tile {
 	public String toString() {
 		return " I ";
 	}
+
+	@Override
+	public Object getObject() {
+		return null;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	@Override
+	public String getType() {
+		return "infoField";
+	}
 }
