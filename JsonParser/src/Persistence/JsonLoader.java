@@ -1,5 +1,7 @@
 package Persistence;
 
+import Application.Game;
+
 import java.io.*;
 import java.nio.file.Path;
 
@@ -7,15 +9,14 @@ public class JsonLoader {
 
     public static void importJson(String path) {
         try {
+//            System.out.println(new File("./").getAbsolutePath());
             BufferedReader bf = new BufferedReader(new FileReader(new File(path)));
-            StringBuilder strBuilder = new StringBuilder();
             String content = "";
             String holder = null;
             while ((holder = bf.readLine()) != null) {
-                content = content + holder;
+                content = content + "\n" + holder;
             }
 
-            content = strBuilder.toString();
             System.out.println("===============");
             System.out.println(content);
             System.out.println("===============");
@@ -24,5 +25,10 @@ public class JsonLoader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static Game reloadGame (String content) {
+
+        return null;
     }
 }

@@ -53,7 +53,7 @@ public class JsonSaver {
         }
     }
 
-    public static void writeToFile(String content) throws IOException {
+    private static void writeToFile(String content) throws IOException {
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
         BufferedWriter writer = new BufferedWriter(new FileWriter("ChapSave" + formatter.format(date) + ".JSON"));
