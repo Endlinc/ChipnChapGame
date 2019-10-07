@@ -48,9 +48,8 @@ public class JsonSaver {
                 }
                 JsonObjectBuilder tileBuilder = Json.createObjectBuilder()
                         .add("Object", objBuilder)
-                        .add("Accessible", currentTile.isAccessible())
-                        .add("Location", currentTile.x + " " + currentTile.y)
-                        .add("Type", currentTile.getType());
+                        .add("Type", currentTile.getType())
+                        .add("Location", currentTile.x + " " + currentTile.y);
                 if (currentTile instanceof LockedDoor) {
                     tileBuilder.add("Color",
                             ((LockedDoor) currentTile).getColor().getRed() + " " +

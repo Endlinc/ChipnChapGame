@@ -17,6 +17,12 @@ public class Game {
 
     }
 
+    public Game(Chap chap, Board board, boolean gameWon) {
+        this.chap = chap;
+        this.board = board;
+        this.gameWon = gameWon;
+    }
+
     public Board getBoard() {
         return board;
     }

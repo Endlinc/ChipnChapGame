@@ -15,6 +15,10 @@ public class Board {
         setBoard();
     }
 
+    public Board(Tile[][] layout) {
+        board = layout;
+    }
+
     @Override
     public String toString() {
         String output = "";
