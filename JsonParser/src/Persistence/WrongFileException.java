@@ -1,6 +1,8 @@
 package Persistence;
 
-public class WrongFileException extends Exception {
+import java.io.IOException;
+
+public class WrongFileException extends IOException {
     public WrongFileException(String wrong_input) {
         super(wrong_input);
     }

@@ -10,6 +10,7 @@ public class ExitLock extends Tile{
     	this.x=x;
     	this.y=y;
 		accessible=false;
+		fileName = "ExitDoor.png";
      }
 
 	@Override
@@ -25,5 +26,10 @@ public class ExitLock extends Tile{
 	@Override
 	public String getType() {
 		return "ExitLock";
+	}
+
+	@Override
+	public String getFileName() {
+		return fileName;
 	}
 }

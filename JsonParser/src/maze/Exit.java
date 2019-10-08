@@ -10,6 +10,7 @@ public class Exit extends Tile {
 		this.x=x;
 		this.y=y;
         accessible=true;
+        fileName = "Exit.png";
 	}
 
 	@Override
@@ -25,6 +26,11 @@ public class Exit extends Tile {
 	@Override
 	public String getType() {
 		return "Exit";
+	}
+
+	@Override
+	public String getFileName() {
+		return fileName;
 	}
 }
 

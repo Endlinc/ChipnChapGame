@@ -5,16 +5,32 @@ import Application.Game;
 import maze.*;
 import maze.Object;
 
+import javax.swing.text.Style;
 import java.awt.*;
 import java.io.*;
-import java.nio.file.Path;
-import java.util.Calendar;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class JsonLoader {
 
-    public static void importJson(String path) {
+    public static Game importJson(File file) {
+        try {
+            BufferedReader bf = new BufferedReader(new FileReader(file));
+            String content = "";
+            String holder = null;
+            while ((holder = bf.readLine()) != null) {
+                content = content + "\n" + holder;
+            }
+
+            return reloadGame(content);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Game importJson(String path) {
         try {
             BufferedReader bf = new BufferedReader(new FileReader(new File(path)));
             String content = "";
@@ -23,14 +39,13 @@ public class JsonLoader {
                 content = content + "\n" + holder;
             }
 
-            reloadGame(content);
+            return reloadGame(content);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (WrongFileException e) {
-            e.printStackTrace();
         }
+        return null;
     }
 
     private static Game reloadGame (String content) throws WrongFileException {
@@ -76,11 +91,32 @@ public class JsonLoader {
         }
         Chap chap = new Chap(x, y);
         if (sc.next().contains("Inventory") && sc.next().equals("[")) {
-            while(!sc.hasNext("]")) {
-                // add object to chap's inventory ( implement later with species)
-                chap.addInventory(new Key(Color.red));
+            while(true) {
+                // add object to chap's inventory
+                try {
+                    String Otype = sc.next();
+                    if (Otype.equals("]")) {
+                        throw new QuitException("Quit");
+                    }
+                    if (Otype.contains("Treasure")) {
+                        chap.addInventory(new Treasure());
+                    }
+                    else if (Otype.contains("Key")) {
+                        sc.next();
+                        String s1 = sc.next();
+                        String s2 = sc.next();
+                        String s3 = sc.next();
+                        s3 = s3.substring(0, s3.length()-1);
+                        System.out.println(s1 + " " + s2 + " " + s3);
+                        chap.addInventory(new Key(new Color(Integer.parseInt(s1), Integer.parseInt(s2), Integer.parseInt(s3))));
+                    }
+                    if (sc.next().equals("]")) {
+                        throw new QuitException("Quit");
+                    }
+                } catch (QuitException e) {
+                    break;
+                }
             }
-            sc.next();
         }
         String hold = sc.next();
         if (!hold.equals("}") && !sc.next().equals(",")) {
@@ -100,7 +136,7 @@ public class JsonLoader {
                 throw new WrongFileException("BoardLayout wrong start saving");
             }
             int x = 0, y = 0;
-            while (!sc.hasNext("]")) {
+            while (true) {
                 try {
                     if (y < 9) {
                         layout[x][y] = reloadTile(sc);
@@ -112,19 +148,25 @@ public class JsonLoader {
                         layout[x][y] = reloadTile(sc);
                         y++;
                     }
-                } catch (Exception e) {
+                    sc.next();
+                    String hold1 = sc.next();
+                    if (hold1.equals("]")) {
+                        throw new QuitException("Quit");
+                    }
+                } catch (QuitException e) {
                     break;
                 }
             }
             sc.next();
         }
-        if (!sc.next().equals(",")) {
+        String next = sc.next();
+        if (!next.equals(",")) {
             throw new WrongFileException("Board wrong end saving");
         }
         return new Board(layout);
     }
 
-    private static Tile reloadTile(Scanner sc) throws Exception {
+    private static Tile reloadTile(Scanner sc) throws QuitException {
         sc.next();
         Object o = null;
         String hold = sc.next();
@@ -132,7 +174,7 @@ public class JsonLoader {
             sc.next();
             if (sc.next().contains("Type")) {
                 String oType = sc.next();
-                if (oType.contains("treasure")) {
+                if (oType.contains("Treasure")) {
                     o = new Treasure();
                     sc.next();
                 }
@@ -140,7 +182,7 @@ public class JsonLoader {
                     o = new Chap(4, 4);
                     sc.next();
                 }
-                else if (oType.contains("key")) {
+                else if (oType.contains("Key")) {
                     sc.next();
                     sc.next();
                     String s1 = sc.next();
@@ -228,8 +270,6 @@ public class JsonLoader {
             l2 = l2.substring(0,1);
             tile = new Exit(Integer.parseInt(l1), Integer.parseInt(l2));
         }
-        sc.next();
-        if (sc.next().equals("]")) throw new Exception();
         return tile;
     }
 }

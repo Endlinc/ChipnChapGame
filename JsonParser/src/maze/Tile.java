@@ -8,6 +8,7 @@ public abstract class Tile {
     public Object object;
     public boolean accessible;
     public int x,y;
+    public String fileName;
     public abstract String toString();
 
     public boolean isAccessible() {
@@ -25,4 +26,5 @@ public abstract class Tile {
     public abstract Object getObject();
 
     public abstract String getType();
+    public abstract String getFileName();
 }

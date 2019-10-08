@@ -12,10 +12,12 @@ public class infoField extends Tile {
 		this.y=y;
 		this.info = info;
 		accessible=true;
+		fileName = "QuestionMark.png";
 	}
 
 	public infoField() {
 		accessible=true;
+		fileName = "QuestionMark.png";
 	}
 
 	@Override
@@ -28,12 +30,13 @@ public class infoField extends Tile {
 		return null;
 	}
 
-	public String getInfo() {
-		return info;
-	}
-
 	@Override
 	public String getType() {
 		return "infoField";
+	}
+
+	@Override
+	public String getFileName() {
+		return fileName;
 	}
 }

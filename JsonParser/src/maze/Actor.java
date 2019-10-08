@@ -10,4 +10,9 @@ public class Actor implements Object{
     public String getType() {
         return "Actor";
     }
+
+    @Override
+    public String getFileName() {
+        return null;
+    }
 }

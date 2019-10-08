@@ -5,12 +5,18 @@ package maze;
  *
  */
 public class Treasure implements Object {
+	private String fileName;
 	public Treasure(){
-
+		fileName = "Treasure.png";
 	}
 
 	@Override
 	public String getType() {
-		return "treasure";
+		return "Treasure";
+	}
+
+	@Override
+	public String getFileName() {
+		return fileName;
 	}
 }

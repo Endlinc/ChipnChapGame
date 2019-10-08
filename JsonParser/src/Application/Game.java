@@ -3,6 +3,8 @@ package Application;
 import maze.*;
 import maze.Object;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,9 +14,16 @@ public class Game {
         board = new Board();
         gameWon = false;
 
-        boolean set = setChap(board,4,4);
-//        startGame();
+        startGame();
 
+    }
+
+    public Game(JPanel render){
+        this.render=render;
+        board = new Board();
+        gameWon = false;
+
+        startGame();
     }
 
     public Game(Chap chap, Board board, boolean gameWon) {
@@ -35,6 +44,8 @@ public class Game {
     private int ChapX;
     private int ChapY;
     private Chap chap;
+    private JPanel render;
+    private int numberOfTreasure=8;
 
     public boolean isGameWon() {
         return gameWon;
@@ -52,34 +63,6 @@ public class Game {
 
     public void startGame(){
         boolean set = setChap(board,4,4);
-        System.out.println(set);
-        System.out.println(board);
-        while(!gameWon){
-            // ask input
-            System.out.println("Move the Chap: \n");
-            String input = keyboardInput();
-            Direction dir=null;
-            switch (input) {
-                case "a":
-                    dir = Direction.WEST;
-                    break;
-                case "d":
-                    dir = Direction.EAST;
-                    break;
-                case "w":
-                    dir = Direction.NORTH;
-                    break;
-                case "s":
-                    dir = Direction.SOUTH;
-            }
-            if(dir!=null){
-                System.out.println(dir);
-                movePlayer(chap,dir);
-                System.out.println(board);
-            }
-
-        }
-
     }
 
     public String keyboardInput(){
@@ -94,7 +77,6 @@ public class Game {
             e.printStackTrace();
             return "";
         }
-
     }
 
     public boolean setChap(Board b,int x,int y) {
@@ -113,6 +95,10 @@ public class Game {
         }
     }
 
+    public void setTreasure(){
+        numberOfTreasure = 8;
+    }
+
     /**
      * player move by direction way.
      * @param chap - who will move
@@ -121,7 +107,6 @@ public class Game {
      */
     public boolean movePlayer(Chap chap, Direction dir) {
         FreeTile ChapLoc =(FreeTile) chap.getLocation();
-        //System.out.println(ChapLoc);
         if(!isValidMove(ChapLoc,dir)){
             return false;
         }
@@ -132,7 +117,8 @@ public class Game {
                     Object inventory = ((FreeTile) next).getObject();
                     chap.addInventory(inventory);
                 }
-                ChapLoc.object=null;
+                //ChapLoc.object=null;
+                ChapLoc.setObject(null);
                 ((FreeTile) next).setObject(chap);
                 chap.setLocation(next);
             }
@@ -143,7 +129,6 @@ public class Game {
 
 
     public boolean isValidMove(FreeTile chapLoc,Direction dir){
-        //System.out.println(chapLoc+" "+dir);
         switch (dir) {
             case NORTH:
                 if(chapLoc.getX()>0){
@@ -151,21 +136,82 @@ public class Game {
                     if(next.isAccessible()){
                         return true;
                     }
+                    else{
+                        if(next instanceof LockedDoor){
+                            Color r = ((LockedDoor) next).getColor();
+                            for(Object o : chap.inventory){
+                                if(o instanceof Key){
+                                    if(((Key) o).getColor().equals(r)){
+                                        next.accessible=true;
+                                        board.board[next.x][next.y] = new FreeTile(next.x,next.y);
+
+                                        chap.inventory.remove(o);
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                        if(next instanceof ExitLock&&getAllTreasure()){
+                            next.accessible=true;
+                            board.board[next.x][next.y] = new FreeTile(next.x,next.y);
+                            return true;
+                        }
+                    }
                 }
                 break;
             case SOUTH:
-                if(chapLoc.getX()<board.getBoard().length){
+                if(chapLoc.getX()<board.getBoard().length-1){
                     Tile next = board.getTileByDirection(chapLoc,dir);
                     if(next.isAccessible()){
                         return true;
                     }
+                    else{
+                        if(next instanceof LockedDoor){
+                            Color r = ((LockedDoor) next).getColor();
+                            for(Object o : chap.inventory){
+                                if(o instanceof Key){
+                                    if(((Key) o).getColor().equals(r)){
+                                        next.accessible=true;
+                                        board.board[next.x][next.y] = new FreeTile(next.x,next.y);
+                                        chap.inventory.remove(o);
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                        if(next instanceof ExitLock&&getAllTreasure()){
+                            next.accessible=true;
+                            board.board[next.x][next.y] = new FreeTile(next.x,next.y);
+                            return true;
+                        }
+                    }
                 }
                 break;
             case EAST:
-                if(chapLoc.getY()<board.getBoard()[0].length){
+                if(chapLoc.getY()<board.getBoard()[0].length-1){
                     Tile next = board.getTileByDirection(chapLoc,dir);
                     if(next.isAccessible()){
                         return true;
+                    }
+                    else{
+                        if(next instanceof LockedDoor){
+                            Color r = ((LockedDoor) next).getColor();
+                            for(Object o : chap.inventory){
+                                if(o instanceof Key){
+                                    if(((Key) o).getColor().equals(r)){
+                                        next.accessible=true;
+                                        board.board[next.x][next.y] = new FreeTile(next.x,next.y);
+                                        chap.inventory.remove(o);
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                        if(next instanceof ExitLock&&getAllTreasure()){
+                            next.accessible=true;
+                            board.board[next.x][next.y] = new FreeTile(next.x,next.y);
+                            return true;
+                        }
                     }
                 }
                 break;
@@ -175,10 +221,41 @@ public class Game {
                     if(next.isAccessible()){
                         return true;
                     }
+                    else{
+                        if(next instanceof LockedDoor){
+                            Color r = ((LockedDoor) next).getColor();
+                            for(Object o : chap.inventory){
+                                if(o instanceof Key){
+                                    if(((Key) o).getColor().equals(r)){
+                                        next.accessible=true;
+                                        board.board[next.x][next.y] = new FreeTile(next.x,next.y);
+                                        chap.inventory.remove(o);
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                        if(next instanceof ExitLock&&getAllTreasure()){
+                            next.accessible=true;
+                            board.board[next.x][next.y] = new FreeTile(next.x,next.y);
+                            return true;
+                        }
+                    }
+
                 }
                 break;
         }
         return false;
+    }
+
+    public boolean getAllTreasure(){
+        int count = 0;
+        for(Object o :chap.getInventory()){
+            if(o instanceof Treasure){
+                count++;
+            }
+        }
+        return count==numberOfTreasure;
     }
 
 }

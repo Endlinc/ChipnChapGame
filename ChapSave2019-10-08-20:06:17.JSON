@@ -1,8 +1,15 @@
 
 {
     "Chap": {
-        "ChapLoc": "4 4",
+        "ChapLoc": "2 4",
         "Inventory": [
+            "Treasure",
+            "Treasure",
+            "Treasure",
+            "Treasure",
+            "Treasure",
+            "Treasure",
+            "Treasure"
         ]
     },
     "Board": {
@@ -27,29 +34,24 @@
             },
             {
                 "Object": {
-                    "Type": "treasure"
                 },
-                "Type": "FreeTile",
+                "Type": "WallTile",
                 "Location": "0 3"
             },
             {
                 "Object": {
                 },
-                "Type": "WallTile",
+                "Type": "Exit",
                 "Location": "0 4"
             },
             {
                 "Object": {
-                    "Type": "treasure"
                 },
-                "Type": "FreeTile",
+                "Type": "WallTile",
                 "Location": "0 5"
             },
             {
                 "Object": {
-                    "Type": "key",
-                    "Color": "0 255 0",
-                    "Location": "0 0"
                 },
                 "Type": "FreeTile",
                 "Location": "0 6"
@@ -68,7 +70,6 @@
             },
             {
                 "Object": {
-                    "Type": "treasure"
                 },
                 "Type": "FreeTile",
                 "Location": "1 0"
@@ -82,9 +83,8 @@
             {
                 "Object": {
                 },
-                "Type": "LockedDoor",
-                "Location": "1 2",
-                "Color": "0 0 255"
+                "Type": "FreeTile",
+                "Location": "1 2"
             },
             {
                 "Object": {
@@ -95,7 +95,7 @@
             {
                 "Object": {
                 },
-                "Type": "WallTile",
+                "Type": "ExitLock",
                 "Location": "1 4"
             },
             {
@@ -113,9 +113,8 @@
             {
                 "Object": {
                 },
-                "Type": "LockedDoor",
-                "Location": "1 7",
-                "Color": "255 0 0"
+                "Type": "FreeTile",
+                "Location": "1 7"
             },
             {
                 "Object": {
@@ -132,9 +131,8 @@
             {
                 "Object": {
                 },
-                "Type": "LockedDoor",
-                "Location": "2 1",
-                "Color": "0 255 0"
+                "Type": "FreeTile",
+                "Location": "2 1"
             },
             {
                 "Object": {
@@ -144,24 +142,19 @@
             },
             {
                 "Object": {
-                    "Type": "key",
-                    "Color": "0 0 255",
-                    "Location": "0 0"
                 },
                 "Type": "FreeTile",
                 "Location": "2 3"
             },
             {
                 "Object": {
+                    "Type": "Chap"
                 },
                 "Type": "FreeTile",
                 "Location": "2 4"
             },
             {
                 "Object": {
-                    "Type": "key",
-                    "Color": "0 0 255",
-                    "Location": "0 0"
                 },
                 "Type": "FreeTile",
                 "Location": "2 5"
@@ -234,7 +227,6 @@
             },
             {
                 "Object": {
-                    "Type": "treasure"
                 },
                 "Type": "FreeTile",
                 "Location": "3 8"
@@ -266,7 +258,6 @@
             },
             {
                 "Object": {
-                    "Type": "Chap"
                 },
                 "Type": "FreeTile",
                 "Location": "4 4"
@@ -358,9 +349,8 @@
             {
                 "Object": {
                 },
-                "Type": "LockedDoor",
-                "Location": "6 1",
-                "Color": "0 255 0"
+                "Type": "FreeTile",
+                "Location": "6 1"
             },
             {
                 "Object": {
@@ -370,9 +360,6 @@
             },
             {
                 "Object": {
-                    "Type": "key",
-                    "Color": "255 0 0",
-                    "Location": "0 0"
                 },
                 "Type": "FreeTile",
                 "Location": "6 3"
@@ -385,9 +372,6 @@
             },
             {
                 "Object": {
-                    "Type": "key",
-                    "Color": "255 0 0",
-                    "Location": "0 0"
                 },
                 "Type": "FreeTile",
                 "Location": "6 5"
@@ -406,14 +390,12 @@
             },
             {
                 "Object": {
-                    "Type": "treasure"
                 },
                 "Type": "FreeTile",
                 "Location": "6 8"
             },
             {
                 "Object": {
-                    "Type": "treasure"
                 },
                 "Type": "FreeTile",
                 "Location": "7 0"
@@ -427,9 +409,8 @@
             {
                 "Object": {
                 },
-                "Type": "LockedDoor",
-                "Location": "7 2",
-                "Color": "255 0 0"
+                "Type": "FreeTile",
+                "Location": "7 2"
             },
             {
                 "Object": {
@@ -452,9 +433,8 @@
             {
                 "Object": {
                 },
-                "Type": "LockedDoor",
-                "Location": "7 6",
-                "Color": "0 0 255"
+                "Type": "FreeTile",
+                "Location": "7 6"
             },
             {
                 "Object": {
@@ -488,7 +468,7 @@
             },
             {
                 "Object": {
-                    "Type": "treasure"
+                    "Type": "Treasure"
                 },
                 "Type": "FreeTile",
                 "Location": "8 3"
@@ -501,9 +481,6 @@
             },
             {
                 "Object": {
-                    "Type": "key",
-                    "Color": "0 255 0",
-                    "Location": "0 0"
                 },
                 "Type": "FreeTile",
                 "Location": "8 5"
@@ -516,7 +493,6 @@
             },
             {
                 "Object": {
-                    "Type": "treasure"
                 },
                 "Type": "FreeTile",
                 "Location": "8 7"

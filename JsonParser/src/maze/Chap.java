@@ -13,6 +13,7 @@ public class Chap implements Object{
     public List<Object> inventory = new ArrayList<Object>();
     public Tile t;
 	private int x,y;
+	private String fileName;
 	/**
 	 * @param x
 	 * @param y
@@ -20,10 +21,12 @@ public class Chap implements Object{
 	public Chap(int x, int y) {
 		this.x=x;
 		this.y=y;
+		fileName = "Chap.png";
 	}
 
 	public Chap(Tile t) {
 		this.t=t;
+		fileName = "Chap.png";
 	}
 
 	public Tile getLocation(){
@@ -84,5 +87,10 @@ public class Chap implements Object{
 	@Override
 	public String getType() {
 		return "Chap";
+	}
+
+	@Override
+	public String getFileName() {
+		return fileName;
 	}
 }

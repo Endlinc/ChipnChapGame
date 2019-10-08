@@ -1,14 +1,16 @@
 package Application;
 
+import Persistence.JsonLoader;
+import Persistence.JsonSaver;
 import maze.Chap;
 import maze.Key;
 import maze.Tile;
+import Renderer.Render;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
+import java.io.File;
 
 public class GraphicalUserInterface extends JFrame implements WindowListener {
 	private Game game;
@@ -24,7 +26,7 @@ public class GraphicalUserInterface extends JFrame implements WindowListener {
 	private JMenu saveMenu;
 	private JMenuItem save;
 	private JMenuItem load;
-
+	protected Render render = new Render();
 
 	private JButton east;
 	private JButton north;
@@ -35,23 +37,20 @@ public class GraphicalUserInterface extends JFrame implements WindowListener {
 
 	private JPanel board;
 	private JPanel outerMostPanel;
+	private RenderPanel renderer;
 	private JLabel playerName;
+	private KeyListener k;
 
 	public GraphicalUserInterface() {
 		super("CHAP GAME");
+		//game = new Game();
 		initialize();
 		setupGUI();
 		getContentPane().add(outerMostPanel);
 
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		addWindowListener(this);
-
-		// setupPlayers();
-		// game = new CluedoGame(players);
-		game = new Game();
-
-		// game.newGame();
-		// updatePanel();
+		addKeyListener(renderer);
 
 		pack();
 
@@ -65,7 +64,7 @@ public class GraphicalUserInterface extends JFrame implements WindowListener {
 		levelMenu = new JMenu("Level");
 		helpMenu = new JMenu("Help");
 		saveMenu = new JMenu("Save&Load");
-		start = new JMenuItem("Start Game");
+		start = new JMenuItem("New Game");
 		end = new JMenuItem("End Game");
 		option = new JMenuItem("Option");
 		level = new JMenuItem("Level");
@@ -74,15 +73,44 @@ public class GraphicalUserInterface extends JFrame implements WindowListener {
 		load = new JMenuItem("Load");
 
 		board = new JPanel();
+		renderer = new RenderPanel(game) {
+			public void paintComponent(Graphics g) {
+				if(game!=null){
+					super.paintComponent(g);
+					Graphics2D g2 = (Graphics2D) g;
+					render.renderGame(g2, getWidth(), getHeight(), game);
+				}
+			}
+		};
+		renderer.setPreferredSize(new java.awt.Dimension(50, 512));
+
 		outerMostPanel = new JPanel();
 	}
 
 	public void setupGUI() {
 		start.addActionListener(e -> {
-
+			game = new Game();
+			renderer.newGame(game);
+			renderer.repaint();
 		});
 		end.addActionListener(e -> {
 
+		});
+		save.addActionListener(e -> {
+			new JsonSaver().makeJson(game);
+		});
+		load.addActionListener(e -> {
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+			int result = fileChooser.showOpenDialog(outerMostPanel);
+			if (result == JFileChooser.APPROVE_OPTION) {
+				// get the file path
+				File selectedFile = fileChooser.getSelectedFile();
+				// reload file to Game
+				game = new JsonLoader().importJson(selectedFile);
+				renderer.newGame(game);
+				renderer.repaint();
+			}
 		});
 		gameMenu.add(start);
 		gameMenu.add(end);
@@ -116,9 +144,8 @@ public class GraphicalUserInterface extends JFrame implements WindowListener {
 		output.setEditable(true);
 		JScrollPane scroll = new JScrollPane(output);
 
-		//System.out.println(game.getBoard().toString());
-		output.setText(game.getBoard().toString());
-		board.add(output);
+		renderer.setVisible(true);
+		board.add(renderer);
 		JComponent drawing = new JComponent() {
 			protected void paintComponent(Graphics g){
 				redraw(g);
@@ -137,7 +164,8 @@ public class GraphicalUserInterface extends JFrame implements WindowListener {
 		boardandstatus.setRightComponent(status);
 		outerMostPanel.setSize(1000, 800);
 		outerMostPanel.setLayout(new BorderLayout());
-		outerMostPanel.add(boardandstatus,BorderLayout.CENTER);
+		//outerMostPanel.add(boardandstatus,BorderLayout.CENTER);
+		outerMostPanel.add(renderer,BorderLayout.CENTER);
 	}
 
 	public void windowClosing(WindowEvent windowEvent) {
@@ -186,13 +214,17 @@ public class GraphicalUserInterface extends JFrame implements WindowListener {
 	public void KeyListener(KeyEvent e) {
 
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			//game.move(Direction.WEST);
+			game.movePlayer(game.getChap(), Game.Direction.WEST);
+			renderer.repaint();
 		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			//game.move(Direction.WEST);
+			game.movePlayer(game.getChap(), Game.Direction.EAST);
+			renderer.repaint();
 		} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-			//game.move(Direction.WEST);
+			game.movePlayer(game.getChap(), Game.Direction.NORTH);
+			renderer.repaint();
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			//game.move(Direction.WEST);
+			game.movePlayer(game.getChap(), Game.Direction.SOUTH);
+			renderer.repaint();
 		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			return;
 		} else if (e.getKeyCode() == KeyEvent.VK_NUMPAD1) {

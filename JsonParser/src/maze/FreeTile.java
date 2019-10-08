@@ -9,18 +9,26 @@ public class FreeTile extends Tile{
 	public FreeTile(int x,int y,Object o) {
 		this.x=x;
 		this.y=y;
-		this.object = o;
+		setObject(o);
 		accessible=true;
 	}
 	public FreeTile(int x,int y) {
 		this.x=x;
 		this.y=y;
-		this.object = null;
+		setObject(null);
 		accessible=true;
 	}
 
 	public void setObject(Object o){
 		object = o;
+		if(o!=null){
+			System.out.println("Object:"+o);
+			fileName = o.getFileName();
+		}
+		else{
+			fileName = "FreeTile.png";
+		}
+
 	}
 
 	public Object getObject(){
@@ -30,6 +38,11 @@ public class FreeTile extends Tile{
 	@Override
 	public String getType() {
 		return "FreeTile";
+	}
+
+	@Override
+	public String getFileName() {
+		return fileName;
 	}
 
 	public int getX(){
@@ -54,6 +67,5 @@ public class FreeTile extends Tile{
 		else{
 			return " _ ";
 		}
-
 	}
 }

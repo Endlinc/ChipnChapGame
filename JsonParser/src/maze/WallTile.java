@@ -9,6 +9,7 @@ public class WallTile extends Tile {
     public WallTile(int x,int y) {
         this.x=x;
         this.y=y;
+        fileName = "WallTile.png";
         accessible=false;
     }
 
@@ -25,5 +26,10 @@ public class WallTile extends Tile {
     @Override
     public String getType() {
         return "WallTile";
+    }
+
+    @Override
+    public String getFileName() {
+        return fileName;
     }
 }

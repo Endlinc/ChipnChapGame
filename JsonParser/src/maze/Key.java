@@ -12,9 +12,23 @@ public class Key implements Object {
 	private boolean pickedUp = false;
 	private String type = "key";
 	private LockedDoor door;
+	private String fileName;
+
+	public Color getColor() {
+		return color;
+	}
 
 	public Key(Color color) {
 		this.color = color;
+		if(color.equals(Color.red)){
+			fileName = "RedKey.png";
+		}
+		else if(color.equals(Color.blue)){
+			fileName = "BlueKey.png";
+		}
+		else if(color.equals(Color.green)){
+			fileName = "GreenKey.png";
+		}
 	}
 
 	public LockedDoor getDoor() {
@@ -25,11 +39,6 @@ public class Key implements Object {
 		this.door = door;
 	}
 
-	@Override
-	public String getType() {
-		return "key";
-	}
-
 	public int getX() {
 		return x;
 	}
@@ -38,11 +47,13 @@ public class Key implements Object {
 		return y;
 	}
 
-	public Color getColor() {
-		return color;
+	@Override
+	public String getFileName(){
+		return fileName;
 	}
 
-	public boolean isPickedUp() {
-		return pickedUp;
+	@Override
+	public String getType() {
+		return "Key";
 	}
 }
