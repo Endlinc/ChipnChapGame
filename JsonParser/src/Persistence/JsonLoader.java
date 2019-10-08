@@ -21,7 +21,9 @@ public class JsonLoader {
                 content = content + "\n" + holder;
             }
 
-            return reloadGame(content);
+            Game game = reloadGame(content);
+            game.getChap().setLocation(game.getBoard().getLocation(game.getChap().getX(), game.getChap().getY()));
+            return game;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
